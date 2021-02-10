@@ -1,10 +1,6 @@
-# terraform-ibm-kms
-Terraform modules to create and work with IBM Key Management Service
+# KMS instance KMS Key Example
 
-The supported modules are 
-* [Provisioning Key protect Instance](./modules/instance)
-* [Creating or Importing Key Protect Key](./modules/key)
-
+This example is used to create a standard or root key on KMS Instance
 ## Example Usage
 ```
 data "ibm_resource_group" "resource_group" {
@@ -46,6 +42,7 @@ module "kms_key" {
 | standard_key_type        | Determines if it has to be a standard key or root key          |`bool`  | false   | no      |
 | force_delete             | Determines if it has to be force deleted                       |`bool`  | false   | no      |
 | network_access_allowed   | public or private                                              |`string`| `public`| no      |
+| key_material             | Key Payload.                                                   |`string`| n/a     | yes     |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

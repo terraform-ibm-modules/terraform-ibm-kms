@@ -1,26 +1,8 @@
-# terraform-ibm-kms
-Terraform modules to create and work with IBM Key Management Service
+# KMS instance KMS Key Module
 
-The supported modules are 
-* [Provisioning Key protect Instance](./modules/instance)
-* [Creating or Importing Key Protect Key](./modules/key)
-
+This module is used to create a keys on KMS Instance
 ## Example Usage
 ```
-data "ibm_resource_group" "resource_group" {
-  name = var.resource_group
-}
-
-module "kms_instance" {
-  source                 = "terraform-ibm-modules/kms/ibm//modules/instance"
-  resource_group_id      = data.ibm_resource_group.resource_group.id
-  service_name           = var.service_name
-  location               = var.location
-  plan                   = "tiered-pricing"
-  tags                   = var.tags
-  allowed_network_policy = var.allowed_network_policy
-}
-
 module "kms_key" {
   source                 = "terraform-ibm-modules/kms/ibm//modules/key"
   kms_instance_guid      = module.kms_instance.kms_instance-guid
@@ -34,18 +16,26 @@ module "kms_key" {
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
+
 | Name                     | Description                                                    | Type   |Default  |Required |
 |--------------------------|----------------------------------------------------------------|:-------|:--------|:--------|
-| resource\_group          | Name of the resource group                                     |`string`| n/a     | yes     |
-| service_name             | A descriptive name used to identify the resource instance      |`string`| n/a     | yes     |
-| location                 | Target location or environment to create the resource instance |`string`| n/a     | yes     |
-| tags                     | Tags for the KMS Instance                                      |`set`   | n/a     | no      |
-| allowed_network_policy   | Types of the service endpoints.                                |`string`| n/a     | no      |
 | kms_instance_guid        | GUID of the Instance                                           |`string`| n/a     | yes     |
 | name                     | Name of the Key                                                |`string`| n/a     | yes     |
 | standard_key_type        | Determines if it has to be a standard key or root key          |`bool`  | false   | no      |
 | force_delete             | Determines if it has to be force deleted                       |`bool`  | false   | no      |
 | network_access_allowed   | public or private                                              |`string`| `public`| no      |
+| key_material             | Key Payload.                                                   |`string`| n/a     | no      |
+| encrypted_nonce          | Encrypted Nonce. Only for imported root key.                   |`string`| n/a     | no      |
+| iv_value                 | IV Value. Only for imported root key.                          |`string`| n/a     | no      |
+| expiration_date          | Expination Date.                                               |`string`| n/a     | no      |
+
+Note: 
+* If the following attributes [`standard_key_type`, `force_delete`,`network_access_allowed`] are set to null then default values will be taken..
+
+## Outputs
+| Name         | Description     |
+|--------------|-----------------|
+| kms_key      | KMS Key Details.|
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

@@ -1,10 +1,6 @@
-# terraform-ibm-kms
-Terraform modules to create and work with IBM Key Management Service
+# KMS instance KMS Key Example
 
-The supported modules are 
-* [Provisioning Key protect Instance](./modules/instance)
-* [Creating or Importing Key Protect Key](./modules/key)
-
+This example is used to create a KMS Instance
 ## Example Usage
 ```
 data "ibm_resource_group" "resource_group" {
@@ -21,15 +17,6 @@ module "kms_instance" {
   allowed_network_policy = var.allowed_network_policy
 }
 
-module "kms_key" {
-  source                 = "terraform-ibm-modules/kms/ibm//modules/key"
-  kms_instance_guid      = module.kms_instance.kms_instance-guid
-  name                   = var.name
-  standard_key_type      = var.standard_key_type
-  force_delete           = var.force_delete
-  network_access_allowed = var.network_access_allowed
-}
-
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -41,11 +28,6 @@ module "kms_key" {
 | location                 | Target location or environment to create the resource instance |`string`| n/a     | yes     |
 | tags                     | Tags for the KMS Instance                                      |`set`   | n/a     | no      |
 | allowed_network_policy   | Types of the service endpoints.                                |`string`| n/a     | no      |
-| kms_instance_guid        | GUID of the Instance                                           |`string`| n/a     | yes     |
-| name                     | Name of the Key                                                |`string`| n/a     | yes     |
-| standard_key_type        | Determines if it has to be a standard key or root key          |`bool`  | false   | no      |
-| force_delete             | Determines if it has to be force deleted                       |`bool`  | false   | no      |
-| network_access_allowed   | public or private                                              |`string`| `public`| no      |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
