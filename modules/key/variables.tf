@@ -46,3 +46,8 @@ variable "expiration_date" {
   type        = string
   default     = null
 }
+variable "policies" {
+  description = " Set policies for a key, such as an automatic rotation policy or a dual authorization policy."
+  type        = any
+  default     = {}
+}
