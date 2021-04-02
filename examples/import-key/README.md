@@ -46,6 +46,7 @@ module "kms_key" {
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+## NOTE: If we want to make use of a particular version of module, then set the argument "version" to respective module version.
 ## Usage
 
 To run this example you need to execute:

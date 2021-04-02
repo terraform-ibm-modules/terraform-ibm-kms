@@ -10,6 +10,14 @@ module "kms_key" {
   standard_key_type      = var.standard_key_type
   force_delete           = var.force_delete
   network_access_allowed = var.network_access_allowed
+  policies = {
+    rotation = {
+      interval_month = 1
+    }
+    dual_auth_delete = {
+      enabled = false
+    }
+  }
 }
 
 ```
@@ -28,6 +36,25 @@ module "kms_key" {
 | encrypted_nonce          | Encrypted Nonce. Only for imported root key.                   |`string`| n/a     | no      |
 | iv_value                 | IV Value. Only for imported root key.                          |`string`| n/a     | no      |
 | expiration_date          | Expination Date.                                               |`string`| n/a     | no      |
+| policies                 | Set policies for a key.                                        |`list(map)`| n/a  | no      |
+
+## policies Inputs
+
+| Name                     | Description                                                    | Type   |Default  |Required |
+|--------------------------|-------------------------------------------------------|:-------|:--------|:--------|
+| rotation                 | Specifies the key rotation time interval in months    |`map(string)`| n/a| Atleast one of rotation/dual_auth_delete|
+| dual_auth_delete         | Data associated with the dual authorization delete policy.|`map(string)`| n/a | Atleast one of rotation/dual_auth_delete|
+
+## rotation Inputs
+
+| Name                     | Description                                                    | Type   |Default  |Required |
+|--------------------------|----------------------------------------------------------------|:-------|:--------|:--------|
+| interval_month        | Specifies the key rotation time interval in months                |`int`| n/a     | yes     |
+## dual_auth_delete Inputs
+
+| Name                     | Description                                                    | Type   |Default  |Required |
+|--------------------------|----------------------------------------------------------------|:-------|:--------|:--------|
+| enabled        | If set to true, Key Protect enables a dual authorization policy on a single key.      |`bool`| n/a     | yes     |
 
 Note: 
 * If the following attributes [`standard_key_type`, `force_delete`,`network_access_allowed`] are set to null then default values will be taken..
@@ -39,6 +66,7 @@ Note:
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+## NOTE: If we want to make use of a particular version of module, then set the argument "version" to respective module version.
 ## Usage
 
 To run this example you need to execute:
