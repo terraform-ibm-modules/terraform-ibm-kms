@@ -2,7 +2,14 @@
 # IBM Cloud Key Management Services Provisioning and Managing Keys
 # Copyright 2021 IBM
 #########################################################################################
-
+variable "ibmcloud_api_key" {
+  description = "IBM-Cloud API Key"
+  type        = string
+}
+variable "ibm_region" {
+  description = "IBM-Cloud Region"
+  type        = string
+}
 variable "resource_group" {
   type        = string
   description = "Resource group of instance"
@@ -25,7 +32,7 @@ variable "tags" {
   type        = set(string)
   description = "Tags for the cms"
 }
-variable "name" {
+variable "key_name" {
   description = "Name of the Key"
   type        = string
 }
@@ -43,8 +50,4 @@ variable "force_delete" {
   description = "Determines if it has to be force deleted"
   default     = null
   type        = bool
-}
-variable "key_material" {
-  description = "key_material of the Key"
-  type        = string
 }
