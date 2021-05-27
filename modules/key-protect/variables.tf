@@ -2,12 +2,47 @@
 # IBM Cloud Key Management Services Provisioning and Managing Keys
 # Copyright 2021 IBM
 #########################################################################################
-variable "kms_instance_guid" {
-  description = "GUID of KMS Service Instance"
-  type        = string
 
+######################################
+# Key Protect Instance Variables
+######################################
+variable "is_kp_instance_exist" {
+  default     = false
+  description = "Determines if kp instance exists on not. If false, it creates and instance with given name."
+  type        = bool
 }
-variable "name" {
+variable "resource_group_id" {
+  type        = string
+  description = "Resource group ID of instance"
+}
+variable "service_name" {
+  type        = string
+  description = "Name of KMS Instance"
+}
+variable "location" {
+  type        = string
+  description = "Location of KMS Instance"
+  default     = null
+}
+variable "plan" {
+  type        = string
+  description = "Plan of KMS Instance"
+  default     = null
+}
+variable "allowed_network_policy" {
+  default     = null
+  type        = string
+  description = "Types of the service endpoints. Possible values are 'public', 'private', 'public-and-private'."
+}
+variable "tags" {
+  default     = null
+  type        = set(string)
+  description = "Tags for the KMS Instance"
+}
+######################################
+# Key Protect Key Variables
+######################################
+variable "key_name" {
   description = "Name of the Key"
   type        = string
 }
