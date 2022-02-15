@@ -19,4 +19,6 @@ module "kms_key" {
   standard_key_type      = var.standard_key_type
   force_delete           = var.force_delete
   network_access_allowed = var.network_access_allowed
+  rotation               = var.rotation
+  dual_auth_delete       = var.dual_auth_delete
 }

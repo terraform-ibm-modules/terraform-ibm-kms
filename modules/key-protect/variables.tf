@@ -81,8 +81,22 @@ variable "expiration_date" {
   type        = string
   default     = null
 }
-variable "policies" {
-  description = " Set policies for a key, such as an automatic rotation policy or a dual authorization policy."
-  type        = any
-  default     = {}
+
+######################################
+# Key Protect Key Policies Variables
+######################################
+variable "endpoint_type" {
+  description = "The type of the public or private endpoint to be used for fetching policies."
+  type        = string
+  default     = null
+}
+variable "rotation" {
+  description = "The key rotation time interval in months, with a minimum of 1, and a maximum of 12."
+  type        = object({ interval_month = number })
+  default     = null
+}
+variable "dual_auth_delete" {
+  description = "Enable or disable dual auth delete on keys. Enabled requires 2 levels of approval to delete a key. Default is false."
+  type        = bool
+  default     = false
 }

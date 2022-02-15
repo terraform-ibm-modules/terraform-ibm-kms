@@ -18,6 +18,7 @@ module "kms_key" {
   standard_key_type      = var.standard_key_type
   force_delete           = var.force_delete
   network_access_allowed = var.network_access_allowed
+  rotation               = var.rotation 
 }
 
 ```
@@ -42,26 +43,9 @@ module "kms_key" {
 | encrypted_nonce          | Encrypted Nonce. Only for imported root key.                   |`string`| n/a     | no      |
 | iv_value                 | IV Value. Only for imported root key.                          |`string`| n/a     | no      |
 | expiration_date          | Expination Date.                                               |`string`| n/a     | no      |
-| policies                 | Set policies for a key.                                        |`list(map)`| n/a  | no      |
-
-## policies Inputs
-
-| Name                     | Description                                                    | Type   |Default  |Required |
-|--------------------------|-------------------------------------------------------|:-------|:--------|:--------|
-| rotation                 | Specifies the key rotation time interval in months    |`map(string)`| n/a| Atleast one of rotation/dual_auth_delete|
-| dual_auth_delete         | Data associated with the dual authorization delete policy.|`map(string)`| n/a | Atleast one of rotation/dual_auth_delete|
-
-## rotation Inputs
-
-| Name                     | Description                                                    | Type   |Default  |Required |
-|--------------------------|----------------------------------------------------------------|:-------|:--------|:--------|
-| interval_month        | Specifies the key rotation time interval in months                |`int`| n/a     | yes     |
-
-## dual_auth_delete Inputs
-
-| Name                     | Description                                                    | Type   |Default  |Required |
-|--------------------------|----------------------------------------------------------------|:-------|:--------|:--------|
-| enabled        | If set to true, Key Protect enables a dual authorization policy on a single key.      |`bool`| n/a     | yes     |
+| endpoint_type            | The type of the public or private endpoint to be used for fetching policies. |`string`| n/a     | no      |
+| rotation                 | The key rotation time interval in months                       |`object({ interval_month = number })`| n/a   | Atleast one of rotation/dual_auth_delete    |
+| dual_auth_delete         | Data associated with the dual authorization delete policy.     |`bool`| false | Atleast one of rotation/dual_auth_delete|
 
 Note:
 
