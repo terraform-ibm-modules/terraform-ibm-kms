@@ -42,12 +42,6 @@ module "kms_key" {
 | encrypted_nonce          | Encrypted Nonce. Only for imported root key.                   |`string`| n/a     | no      |
 | iv_value                 | IV Value. Only for imported root key.                          |`string`| n/a     | no      |
 | expiration_date          | Expination Date.                                               |`string`| n/a     | no      |
-| policies                 | Set policies for a key.                                        |`list(map)`| n/a  | no      |
-
-## policies Inputs
-
-| Name                     | Description                                                    | Type   |Default  |Required |
-|--------------------------|-------------------------------------------------------|:-------|:--------|:--------|
 | rotation                 | Specifies the key rotation time interval in months    |`map(string)`| n/a| Atleast one of rotation/dual_auth_delete|
 | dual_auth_delete         | Data associated with the dual authorization delete policy.|`map(string)`| n/a | Atleast one of rotation/dual_auth_delete|
 
@@ -77,6 +71,11 @@ Note:
 | kms_instance_crn      |KP Instance CRN|
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+~> NOTE:
+```
+The ability to use the ibm_kms_key resource to create or update key policies in Terraform has been removed in favor of a dedicated ibm_kms_key_policies resource.
+```
 
 ## NOTE: If we want to make use of a particular version of module, then set the argument "version" to respective module version
 

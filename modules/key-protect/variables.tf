@@ -81,8 +81,21 @@ variable "expiration_date" {
   type        = string
   default     = null
 }
-variable "policies" {
-  description = " Set policies for a key, such as an automatic rotation policy or a dual authorization policy."
+variable "rotation" {
+  description = "Specifies the key rotation time interval in months. Atleast one of rotation/dual_auth_delete is required for policy creation."
   type        = any
   default     = {}
+  # default = {     // Example value
+  #      interval_month = 3
+  #   }
+
 }
+variable "dual_auth_delete" {
+  description = "Data associated with the dual authorization delete policy.Atleast one of rotation/dual_auth_delete is required for policy creation."
+  type        = any
+  default     = {}
+  # default {       // Example value
+  #      enabled = false
+  #   }
+}
+
