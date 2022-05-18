@@ -14,3 +14,6 @@ output "kms_instance_guid" {
 output "kms_instance_crn" {
   value = var.is_kp_instance_exist != true ? ibm_resource_instance.kms_instance[0].id : data.ibm_resource_instance.kms_instance[0].id
 }
+output "kms_key_status" {
+  value = ibm_kms_key.key.resource_status
+}
