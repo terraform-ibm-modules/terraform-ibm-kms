@@ -1,8 +1,10 @@
 # terraform-ibm-kms
 
-Terraform modules to create and work with IBM Key Management Service
+[![Build Status](https://github.com/terraform-ibm-modules/terraform-ibm-kms/actions/workflows/ci.yml/badge.svg)](https://github.com/terraform-ibm-modules/terraform-ibm-kms/actions/workflows/ci.yml)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
-The supported modules are
+Following terraform modules are used to create and work with IBM Key Management Service
 
 * [Provision and manage Key protect Instance and its keys](./modules/key-protect)
 
@@ -24,53 +26,31 @@ module "kms_key" {
   network_access_allowed = var.network_access_allowed
 }
 ```
+## Requirements
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.41.1 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+No resources.
+
 ## Inputs
 
-| Name                     | Description                                                    | Type   |Default  |Required |
-|--------------------------|----------------------------------------------------------------|:-------|:--------|:--------|
-| resource\_group          | Name of the resource group                                     |`string`| n/a     | yes     |
-| service_name             | A descriptive name used to identify the resource instance      |`string`| n/a     | yes     |
-| location                 | Target location or environment to create the resource instance |`string`| n/a     | yes     |
-| tags                     | Tags for the KMS Instance                                      |`set`   | n/a     | no      |
-| allowed_network_policy   | Types of the service endpoints.                                |`string`| n/a     | no      |
-| kms_instance_guid        | GUID of the Instance                                           |`string`| n/a     | yes     |
-| key_name                     | Name of the Key                                                |`string`| n/a     | yes     |
-| standard_key_type        | Determines if it has to be a standard key or root key          |`bool`  | false   | no      |
-| force_delete             | Determines if it has to be force deleted                       |`bool`  | false   | no      |
-| network_access_allowed   | public or private                                              |`string`| `public`| no      |
+No inputs.
 
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Outputs
 
-## NOTE: If we want to make use of a particular version of module, then set the argument "version" to respective module version
+No outputs.
 
-## Usage
+## Contributing
 
-Initialising Provider
+You can report issues and request features for this module in the [terraform-ibm-issue-tracker](https://github.com/terraform-ibm-modules/terraform-ibm-issue-tracker/issues) repo. See [Report an issue or request a feature](https://github.com/terraform-ibm-modules/.github/blob/main/.github/SUPPORT.md).
 
-Make sure you declare a required providers ibm block to make use of IBM-Cloud Terraform Provider
-
-```terraform
-terraform {
-  required_providers {
-    ibm = {
-      source = "IBM-Cloud/ibm"
-      version = "<version>"  // Specify the version
-    }
-  }
-}
-```
-
-```bash
-terraform init
-terraform plan
-terraform apply
-```
-
-Run `terraform destroy` when you don't need these resources.
-
-## Note
-
-* All optional fields are given value `null` in varaible.tf file. User can configure the same by overwriting with appropriate values.
-* Provide `version` attribute in terraform block in versions.tf file to use specific version of terraform provider.
+To set up your local development environment, see [Local development setup](https://terraform-ibm-modules.github.io/documentation/#/local-dev-setup) in the project documentation.

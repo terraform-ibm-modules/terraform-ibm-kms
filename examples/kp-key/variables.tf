@@ -1,22 +1,21 @@
 #########################################################################################
 # IBM Cloud Key Management Services Provisioning and Managing Keys
-# Copyright 2021 IBM
 #########################################################################################
 variable "ibmcloud_api_key" {
   description = "IBM-Cloud API Key"
   type        = string
 }
 variable "ibm_region" {
-  description = "IBM-Cloud Region"
+  description = "Provider level config:  Region"
   type        = string
 }
 variable "resource_group" {
   type        = string
-  description = "Resource group of instance"
+  description = "KMS instance resource group name"
 }
 variable "service_name" {
   type        = string
-  description = "Name of KMS Instance"
+  description = "Name of the KMS Instance"
 }
 variable "location" {
   type        = string
@@ -30,24 +29,24 @@ variable "allowed_network_policy" {
 variable "tags" {
   default     = null
   type        = set(string)
-  description = "Tags for the cms"
+  description = "List of tags to attach to kms instance"
 }
 variable "key_name" {
   description = "Name of the Key"
   type        = string
 }
 variable "network_access_allowed" {
-  description = "Endpoint type of the Key"
+  description = "The type of the public or private endpoint to be used for creating keys."
   type        = string
   default     = null
 }
 variable "standard_key_type" {
-  description = "Determines if it is a standard key or not"
+  description = "Set flag true for standard key, and false for root key."
   default     = null
   type        = bool
 }
 variable "force_delete" {
-  description = "Determines if it has to be force deleted"
+  description = "If set to true, Key Protect forces the deletion of a root or standard key, even if this key is still in use"
   default     = null
   type        = bool
 }
