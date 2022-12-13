@@ -12,7 +12,13 @@ variable "ibm_region" {
 }
 variable "resource_group" {
   type        = string
-  description = "Resource group of instance"
+  description = "An existing resource group name to use for this example. If not set, a new resource group is created."
+  default     = null
+}
+variable "prefix" {
+  description = "The prefix to append to your resources"
+  type        = string
+  default     = "kms"
 }
 variable "service_name" {
   type        = string
