@@ -10,11 +10,17 @@ variable "ibm_region" {
   description = "IBM-Cloud Region"
   type        = string
 }
+variable "create_resource_group" {
+  type        = bool
+  description = "Set this to false to read existing resource group."
+  default     = true
+}
+
 variable "resource_group" {
   type        = string
   description = "An existing resource group name to use for this example. If not set, a new resource group is created."
-  default     = null
 }
+
 variable "prefix" {
   description = "The prefix to append to your resources"
   type        = string
