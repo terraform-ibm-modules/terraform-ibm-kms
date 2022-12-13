@@ -1,6 +1,10 @@
-# Key Protect Module
+# terraform-ibm-kms
 
-This module is used to manage KMS instance and its keys
+Terraform modules to create and work with IBM Key Management Service
+
+The supported modules are
+
+* [Provision and manage Key protect Instance and its keys](./modules/key-protect)
 
 ## Example Usage
 
@@ -19,92 +23,54 @@ module "kms_key" {
   force_delete           = var.force_delete
   network_access_allowed = var.network_access_allowed
 }
-
 ```
+## Requirements
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.41.1 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [ibm_resource_instance.kms_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/resource_instance) | resource |
+| [ibm_kms_key.key](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.41.1/docs/resources/kms_key) | resource |
+| [ibm_kms_key_policies.key_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.41.1/docs/resources/kms_key_policies) | resource |
+| [ibm_resource_instance.kms_instance](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.41.1/docs/data-sources/resource_instance) | data source |
+
 ## Inputs
-
-| Name                     | Description                                                    | Type   |Default  |Required |
-|--------------------------|----------------------------------------------------------------|:-------|:--------|:--------|
-| is_kp_instance_exist     | Determines if instance exists or not      |`bool`| n/a     | false     |
-| service_name             | A descriptive name used to identify the resource instance      |`string`| n/a     | yes     |
-| plan                     | The name of the plan type supported by service.                |`string`| n/a     | yes     |
-| location                 | Target location or environment to create the resource instance |`string`| n/a     | yes     |
-| resource_group_id        | Id of the resource group                                       |`string`| n/a     | yes     |
-| tags                     | Tags for the database                                          |`set`   | n/a     | no      |
-| allowed_network_policy   | Types of the service endpoints.                                |`string`| n/a     | no      |
-| key_name                 | Name of the Key                                                |`string`| n/a     | yes     |
-| standard_key_type        | Determines if it has to be a standard key or root key          |`bool`  | false   | no      |
-| force_delete             | Determines if it has to be force deleted                       |`bool`  | false   | no      |
-| network_access_allowed   | public or private                                              |`string`| `public`| no      |
-| key_material             | Key Payload.                                                   |`string`| n/a     | no      |
-| encrypted_nonce          | Encrypted Nonce. Only for imported root key.                   |`string`| n/a     | no      |
-| iv_value                 | IV Value. Only for imported root key.                          |`string`| n/a     | no      |
-| expiration_date          | Expination Date.                                               |`string`| n/a     | no      |
-| rotation                 | Specifies the key rotation time interval in months    |`map(string)`| n/a| Atleast one of rotation/dual_auth_delete|
-| dual_auth_delete         | Data associated with the dual authorization delete policy.|`map(string)`| n/a | Atleast one of rotation/dual_auth_delete|
-
-## rotation Inputs
-
-| Name                     | Description                                                    | Type   |Default  |Required |
-|--------------------------|----------------------------------------------------------------|:-------|:--------|:--------|
-| interval_month        | Specifies the key rotation time interval in months                |`int`| n/a     | yes     |
-
-## dual_auth_delete Inputs
-
-| Name                     | Description                                                    | Type   |Default  |Required |
-|--------------------------|----------------------------------------------------------------|:-------|:--------|:--------|
-| enabled        | If set to true, Key Protect enables a dual authorization policy on a single key.      |`bool`| n/a     | yes     |
-
-Note:
-
-* If the following attributes [`standard_key_type`, `force_delete`,`network_access_allowed`] are set to null then default values will be taken..
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_is_kp_instance_exist"></a> [is\_kp\_instance\_exist](#input\_is\_kp\_instance\_exist) | Determines if kp instance exists on not. If false, it creates and instance with a given name | `bool` | `false` | no |
+| <a name="input_resource_group_id"></a> [resource\_group\_id](#input\_resource\_group\_id) | Resource group ID of instance | `string` | n/a | yes |
+| <a name="input_service_name"></a> [service\_name](#input\_service\_name) | Name of KMS Instance | `string` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | Location of KMS Instance| `string` | n/a | yes |
+| <a name="input_plan"></a> [plan](#input\_plan) | Plan of KMS Instance | `string` | n/a | yes |
+| <a name="input_allowed_network_policy"></a> [allowed\_network\_policy](#input\_allowed\_network\_policy) | Types of the service endpoints. Possible values are 'public', 'private', 'public-and-private'. | `string` | n/a | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags for the KMS Instance | `list(string)` | n/a | no |
+| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Name of the Key | `string` | n/a | yes |
+| <a name="input_network_access_allowed"></a> [network\_access\_allowed](#input\_network\_access\_allowed) | Endpoint type of the Key | `string` | `false` | no |
+| <a name="input_standard_key_type"></a> [standard\_key\_type](#input\_standard\_key\_type) | Determines if it is a standard key or not | `bool` | `null` | no |
+| <a name="input_force_delete"></a> [force\_delete](#input\_force\_delete) | If set to true, Key Protect forces the deletion of a root or standard key, even if this key is still in use, such as to protect an IBM Cloud Object Storage bucket. | `bool` | `null` | no |
+| <a name="input_encrypted_nonce"></a> [encrypted\_nonce](#input\_encrypted\_nonce) | verifies your request to import a key to Key Protect | `string` | `null` | no |
+| <a name="input_iv_value"></a> [iv\_value](#input\_iv\_value) | Used with import tokens. The initialization vector (IV) that is generated when you encrypt a nonce. | `string` | `null` | no |
+| <a name="key_material"></a> [key\_material](#input\_key\_material) | The base64 encoded key that you want to store and manage in the service. | `string` | `null` | no |
+| <a name="expiration_date"></a> [expiration\_date](#input\_expiration\_date) | Expiry date of the key material. | `string` | `null` | no |
+| <a name="rotation"></a> [rotation](#input\_rotation) | Specifies the key rotation time interval in months. | `map` | `{}` | yes |
+| <a name="dual_auth_delete"></a> [dual\_auth\_delete](#input\_dual\_auth\_delete) | Data associated with the dual authorization delete policy.  | `map` | `{}` | yes |
 
 ## Outputs
 
-| Name         | Description     |
-|--------------|-----------------|
-| kms_key_crn   | KMS Key CRN.|
-| kms_key_id   | KMS Key ID.|
-| kms_instance_id      |KP Instance GUID|
-| kms_instance_crn      |KP Instance CRN|
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-~> NOTE:
-```
-The ability to use the ibm_kms_key resource to create or update key policies in Terraform has been removed in favor of a dedicated ibm_kms_key_policies resource.
-```
-
-## NOTE: If we want to make use of a particular version of module, then set the argument "version" to respective module version
-
-## Usage
-
-Initialising Provider
-
-Make sure you declare a required providers ibm block to make use of IBM-Cloud Terraform Provider
-
-```terraform
-terraform {
-  required_providers {
-    ibm = {
-      source = "IBM-Cloud/ibm"
-      version = "<version>"  // Specify the version
-    }
-  }
-}
-```
-
-```bash
-terraform init
-terraform plan
-terraform apply
-```
-
-Run `terraform destroy` when you don't need these resources.
-
-## Note
-
-* All optional fields are given value `null` in varaible.tf file. User can configure the same by overwriting with appropriate values.
-* Provide `version` attribute in terraform block in versions.tf file to use specific version of terraform provider.
+| Name | Description |
+|------|-------------|
+| <a name="output_kms_key_crn"></a> [kms\_key\_crn](#output\_kms\_key\_crn) | crn of kms key |
+| <a name="output_kms_key_id"></a> [kms\_key\_id](#output\_kms\_key\_id) | kms key id |
+| <a name="output_kms_instance_guid"></a> [kms\_instance\_guid](#output\_kms\_instance\_guid) | kms instance guid |
+| <a name="output_kms_instance_crn"></a> [kms\_instance\_crn](#output\_kms\_instance\_crn) | kms instance crn |
+| <a name="output_kms_key_status"></a> [kms\_key\_status](#output\_kms\_key\_status) | kms key status |
