@@ -21,11 +21,6 @@ variable "resource_group" {
   description = "An existing resource group name to use for this example. If not set, a new resource group is created."
 }
 
-variable "prefix" {
-  description = "The prefix to append to your resources"
-  type        = string
-  default     = "kms"
-}
 variable "service_name" {
   type        = string
   description = "Name of KMS Instance"

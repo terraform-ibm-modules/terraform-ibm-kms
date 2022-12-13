@@ -1,6 +1,5 @@
 #########################################################################################
 # IBM Cloud Key Management Services Provisioning and Managing Keys
-# Copyright 2021 IBM
 #########################################################################################
 
 resource "ibm_resource_instance" "kms_instance" {
